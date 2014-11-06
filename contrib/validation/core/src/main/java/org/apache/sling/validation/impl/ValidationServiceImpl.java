@@ -134,8 +134,13 @@ public class ValidationServiceImpl implements ValidationService, EventHandler {
         for (ResourceProperty resourceProperty : model.getResourceProperties()) {
             String property = resourceProperty.getName();
             Object valuesObject = valueMap.get(property);
-            if (valuesObject == null) {
-                result.addFailureMessage(property, "Missing required property.");
+            if (valuesObject == null) { 
+                if (resourceProperty.isRequired()) {
+                    result.addFailureMessage(property, "Missing required property.");
+                } else {
+                    LOG.debug("ValueMap does not contain property {}, but it is marked as optional", property);
+                    continue;
+                }
             }
             Type propertyType = resourceProperty.getType();
             Map<Validator, Map<String, String>> validators = resourceProperty.getValidators();

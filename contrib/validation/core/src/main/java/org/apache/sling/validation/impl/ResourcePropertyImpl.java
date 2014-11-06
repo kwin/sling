@@ -29,16 +29,18 @@ public class ResourcePropertyImpl implements ResourceProperty {
     private String name;
     private Type type;
     private boolean isMultiple;
+    private boolean isRequired;
     private Map<Validator, Map<String, String>> validators;
 
     public ResourcePropertyImpl(String name, Type type, Map<Validator, Map<String, String>> validators) {
-        this(name, type, false, validators);
+        this(name, type, false, true, validators);
     }
 
-    public ResourcePropertyImpl(String name, Type type, boolean isMultiple, Map<Validator, Map<String, String>> validators) {
+    public ResourcePropertyImpl(String name, Type type, boolean isMultiple, boolean isRequired, Map<Validator, Map<String, String>> validators) {
         this.name = name;
         this.type = type;
         this.isMultiple = isMultiple;
+        this.isRequired = isRequired;
         this.validators = validators;
     }
 
@@ -55,6 +57,11 @@ public class ResourcePropertyImpl implements ResourceProperty {
     @Override
     public boolean isMultiple() {
         return isMultiple;
+    }
+
+    @Override
+    public boolean isRequired() {
+        return isRequired;
     }
 
     @Override

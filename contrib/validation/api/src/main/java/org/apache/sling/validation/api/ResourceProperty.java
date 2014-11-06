@@ -45,6 +45,11 @@ public interface ResourceProperty {
      * @return {@code true} if the  property is multiple, {@code false} otherwise
      */
     boolean isMultiple();
+    
+    /**
+     * @return {@code true} if the property is required, {@code false} otherwise
+     */
+    boolean isRequired();
 
     /**
      * Returns a map containing the validators that should be applied to this property together with the arguments for each validator, also

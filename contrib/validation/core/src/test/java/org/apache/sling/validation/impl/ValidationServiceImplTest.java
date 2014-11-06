@@ -286,6 +286,45 @@ public class ValidationServiceImplTest {
             }
         }
     }
+    
+    @Test()
+    public void testValueMapWithMissingOptionalValue() throws Exception {
+        when(validatorLookupService.getValidator("org.apache.sling.validation.impl.validators.RegexValidator")).thenReturn(new
+                RegexValidator());
+        Whitebox.setInternalState(validationService, "validatorLookupService", validatorLookupService);
+
+        List<TestProperty> properties = new ArrayList<TestProperty>();
+        TestProperty property = new TestProperty();
+        property.name = "field1";
+        property.type = Type.STRING;
+        property.required = false;
+        property.validators.put("org.apache.sling.validation.impl.validators.RegexValidator", null);
+        
+        properties.add(property);
+        ResourceResolver rr = rrf.getAdministrativeResourceResolver(null);
+        Resource model1 = null;
+        try {
+            if (rr != null) {
+                model1 = createValidationModelResource(rr, libsValidatorsRoot.getPath(), "testValidationModel1", "sling/validation/test",
+                        new String[]{"/apps/validation"}, properties);
+            }
+            ValidationModel vm = validationService.getValidationModel("sling/validation/test", "/apps/validation/1/resource");
+            HashMap<String, Object> hashMap = new HashMap<String, Object>() {{
+                put("field2", "1");
+            }};
+            ValueMap map = new ValueMapDecorator(hashMap);
+            ValidationResult vr = validationService.validate(map, vm);
+            Assert.assertTrue(vr.isValid());
+        } finally {
+            if (model1 != null) {
+                rr.delete(model1);
+            }
+            if (rr != null) {
+                rr.commit();
+                rr.close();
+            }
+        }
+    }
 
     @Test
      public void testResourceWithMissingChildProperty() throws Exception {
@@ -380,6 +419,8 @@ public class ValidationServiceImplTest {
                 for (TestProperty property : properties) {
                     Map<String, Object> modelPropertyJCRProperties = new HashMap<String, Object>();
                     modelPropertyJCRProperties.put(Constants.PROPERTY_TYPE, property.type.getName());
+                    modelPropertyJCRProperties.put(Constants.PROPERTY_MULTIPLE, property.multiple);
+                    modelPropertyJCRProperties.put(Constants.PROPERTY_REQUIRED, property.required);
                     modelPropertyJCRProperties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
                     Resource propertyResource = ResourceUtil.getOrCreateResource(rr, propertiesResource.getPath() + "/" + property.name,
                             modelPropertyJCRProperties, null, true);
@@ -421,9 +462,13 @@ public class ValidationServiceImplTest {
     private class TestProperty {
         String name;
         Type type;
+        boolean multiple;
+        boolean required;
         Map<String, String[]> validators;
 
         TestProperty() {
+            required = true;
+            multiple = false;
             validators = new HashMap<String, String[]>();
         }
     }
