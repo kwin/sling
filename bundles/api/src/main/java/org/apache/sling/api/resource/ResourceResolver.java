@@ -21,6 +21,8 @@ package org.apache.sling.api.resource;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.sling.api.adapter.Adaptable;
@@ -191,7 +193,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Resource resolve(String absPath);
+    @Nonnull Resource resolve(@Nonnull String absPath);
 
     /**
      * Resolves the resource from the given <code>HttpServletRequest</code>.
@@ -219,7 +221,7 @@ public interface ResourceResolver extends Adaptable {
      *             instead.
      */
     @Deprecated
-    Resource resolve(HttpServletRequest request);
+    @Nonnull Resource resolve(@Nonnull HttpServletRequest request);
 
     /**
      * Returns a path mapped from the (resource) path applying the reverse
@@ -242,7 +244,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    String map(String resourcePath);
+    @Nonnull String map(@Nonnull String resourcePath);
 
     /**
      * Returns an URL mapped from the (resource) path applying the reverse
@@ -298,7 +300,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Resource getResource(String path);
+    @CheckForNull Resource getResource(@Nonnull String path);
 
     /**
      * Returns a {@link Resource} object for data located at the given path.
@@ -328,7 +330,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Resource getResource(Resource base, String path);
+    @CheckForNull Resource getResource(Resource base, @Nonnull String path);
 
     /**
      * Returns the search path used by the {@link #getResource(String)} method
@@ -351,7 +353,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    String[] getSearchPath();
+    @Nonnull String[] getSearchPath();
 
     /**
      * Returns an <code>Iterator</code> of {@link Resource} objects loaded from
@@ -371,7 +373,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Iterator<Resource> listChildren(Resource parent);
+    @Nonnull Iterator<Resource> listChildren(@Nonnull Resource parent);
 
     /**
      * Returns an <code>Iterable</code> of {@link Resource} objects loaded from
@@ -419,7 +421,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Iterator<Resource> findResources(String query, String language);
+    @Nonnull Iterator<Resource> findResources(@Nonnull String query, String language);
 
     /**
      * Queries the storage using the given query formulated in the given
@@ -449,7 +451,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Iterator<Map<String, Object>> queryResources(String query, String language);
+    @Nonnull Iterator<Map<String, Object>> queryResources(@Nonnull String query, String language);
 
     /**
      * Checks if the specified resource has any direct child resources.
@@ -539,7 +541,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Iterator<String> getAttributeNames();
+    @Nonnull Iterator<String> getAttributeNames();
 
     /**
      * Returns the value of the given resource resolver attribute or
@@ -554,7 +556,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws IllegalStateException if this resource resolver has already been
      *             {@link #close() closed}.
      */
-    Object getAttribute(String name);
+    @CheckForNull Object getAttribute(@Nonnull String name);
 
     /**
      * Delete the resource

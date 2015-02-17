@@ -18,6 +18,7 @@
  */
 package org.apache.sling.api.servlets;
 
+import javax.annotation.Nonnull;
 import javax.servlet.Servlet;
 
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -62,7 +63,7 @@ public interface ServletResolver {
      *             request or if no servlet could be resolved to handle the
      *             request.
      */
-    Servlet resolveServlet(SlingHttpServletRequest request);
+    @Nonnull Servlet resolveServlet(@Nonnull SlingHttpServletRequest request);
 
     /**
      * Resolves a <code>javax.servlet.Servlet</code> whose
