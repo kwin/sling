@@ -91,7 +91,7 @@ public interface ServletResolver {
      *             request.
      * @since 2.1
      */
-    Servlet resolveServlet(Resource resource, String scriptName);
+    @Nonnull Servlet resolveServlet(@Nonnull Resource resource, @Nonnull String scriptName);
 
     /**
      * Resolves a <code>javax.servlet.Servlet</code> whose
@@ -118,6 +118,6 @@ public interface ServletResolver {
      *             request.
      * @since 2.1
      */
-    Servlet resolveServlet(ResourceResolver resolver, String scriptName);
+    @Nonnull Servlet resolveServlet(@Nonnull ResourceResolver resolver, @Nonnull String scriptName);
 
 }

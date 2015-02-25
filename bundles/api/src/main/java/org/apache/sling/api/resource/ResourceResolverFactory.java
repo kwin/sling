@@ -191,5 +191,5 @@ public interface ResourceResolverFactory {
      *
      * @since 2.6
      */
-    ResourceResolver getThreadResourceResolver();
+    @CheckForNull ResourceResolver getThreadResourceResolver();
 }

@@ -365,7 +365,7 @@ public class ResourceUtil {
      * @deprecated Use {@link Resource#getValueMap()}.
      */
     @Deprecated
-    public static ValueMap getValueMap(final Resource res) {
+    public static @Nonnull ValueMap getValueMap(@Nonnull final Resource res) {
         if ( res == null ) {
             // use empty map
             return new ValueMapDecorator(new HashMap<String, Object>());
@@ -382,7 +382,7 @@ public class ResourceUtil {
      * @return The resource type as a path.
      * @since 2.0.6
      */
-    public static String resourceTypeToPath(final String type) {
+    public static @Nonnull String resourceTypeToPath(@Nonnull final String type) {
         return type.replace(':', '/');
     }
 
@@ -468,7 +468,7 @@ public class ResourceUtil {
      * @param <T> The adapted type
      * @since 2.0.6
      */
-    public static <T> Iterator<T> adaptTo(final Iterator<Resource> iterator,
+    public static @Nonnull <T> Iterator<T> adaptTo(final @Nonnull Iterator<Resource> iterator,
             final Class<T> type) {
         return new Iterator<T>() {
 
@@ -512,9 +512,9 @@ public class ResourceUtil {
      * @param autoCommit If set to true, a commit is performed after each resource creation.
      * @since 2.3.0
      */
-    public static Resource getOrCreateResource(
-                            final ResourceResolver resolver,
-                            final String path,
+    public static @Nonnull Resource getOrCreateResource(
+                            final @Nonnull ResourceResolver resolver,
+                            final @Nonnull String path,
                             final String resourceType,
                             final String intermediateResourceType,
                             final boolean autoCommit)
@@ -538,12 +538,12 @@ public class ResourceUtil {
      * @param autoCommit If set to true, a commit is performed after each resource creation.
      * @since 2.3.0
      */
-    public static Resource getOrCreateResource(
-            final ResourceResolver resolver,
-            final String path,
+    public static @Nonnull Resource getOrCreateResource(
+            final @Nonnull ResourceResolver resolver,
+            final @Nonnull String path,
             final Map<String, Object> resourceProperties,
             final String intermediateResourceType,
-            final boolean autoCommit)
+            final boolean autoCommit) 
     throws PersistenceException {
         Resource rsrc = resolver.getResource(path);
         if ( rsrc == null ) {
@@ -637,7 +637,7 @@ public class ResourceUtil {
      * @return The unwrapped resource
      * @since 2.5
      */
-    public static Resource unwrap(final Resource rsrc) {
+    public static @Nonnull Resource unwrap(final @Nonnull Resource rsrc) {
         Resource result = rsrc;
         while ( result instanceof ResourceWrapper ) {
             result = ((ResourceWrapper)result).getResource();

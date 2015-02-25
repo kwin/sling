@@ -27,6 +27,9 @@ import java.util.Set;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 /**
  * The <code>ResourceMetadata</code> interface defines the API for the
  * metadata of a Sling {@link Resource}. Essentially the resource's metadata is

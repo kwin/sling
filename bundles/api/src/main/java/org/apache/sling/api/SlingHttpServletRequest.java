@@ -156,7 +156,7 @@ public interface SlingHttpServletRequest extends HttpServletRequest, Adaptable {
      *         order.
      * @since 2.3 (bundle version 2.6)
      */
-    List<RequestParameter> getRequestParameterList();
+    @Nonnull List<RequestParameter> getRequestParameterList();
 
     /**
      * Returns a <code>RequestDispatcher</code> object that acts as a wrapper

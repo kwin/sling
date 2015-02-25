@@ -165,7 +165,7 @@ public interface ResourceResolver extends Adaptable {
      *             {@link #close() closed}.
      * @since 2.0.4
      */
-    Resource resolve(HttpServletRequest request, String absPath);
+    @Nonnull Resource resolve(@Nonnull HttpServletRequest request, @Nonnull String absPath);
 
     /**
      * Resolves the resource from the given absolute path. Returns a
@@ -273,7 +273,7 @@ public interface ResourceResolver extends Adaptable {
      *             {@link #close() closed}.
      * @since 2.0.4
      */
-    String map(HttpServletRequest request, String resourcePath);
+    @CheckForNull String map(@Nonnull HttpServletRequest request, @Nonnull String resourcePath);
 
     /**
      * Returns a {@link Resource} object for data located at the given path.
@@ -394,7 +394,7 @@ public interface ResourceResolver extends Adaptable {
      *             {@link #close() closed}.
      * @since 2.2
      */
-    Iterable<Resource> getChildren(Resource parent);
+    @Nonnull Iterable<Resource> getChildren(@Nonnull Resource parent);
 
     /**
      * Searches for resources using the given query formulated in the given
@@ -461,7 +461,7 @@ public interface ResourceResolver extends Adaptable {
      * @return <code>true</code> if the resource has any child resources
      * @since 2.4.4
      */
-    boolean hasChildren(Resource resource);
+    boolean hasChildren(@Nonnull Resource resource);
 
     /**
      * Returns a new <code>ResourceResolver</code> instance based on the given
@@ -491,7 +491,7 @@ public interface ResourceResolver extends Adaptable {
      *             {@link #close() closed}.
      * @since 2.1
      */
-    ResourceResolver clone(Map<String, Object> authenticationInfo)
+    @Nonnull ResourceResolver clone(Map<String, Object> authenticationInfo)
             throws LoginException;
 
     /**
@@ -530,7 +530,7 @@ public interface ResourceResolver extends Adaptable {
      *             {@link #close() closed}.
      * @since 2.1
      */
-    String getUserID();
+    @CheckForNull String getUserID();
 
     /**
      * Returns an iterator of attribute names whose value can be retrieved
@@ -571,7 +571,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws PersistenceException If the operation fails.
      * @since 2.2
      */
-    void delete(Resource resource)
+    void delete(@Nonnull Resource resource)
     throws PersistenceException;
 
     /**
@@ -588,7 +588,7 @@ public interface ResourceResolver extends Adaptable {
      * @throws PersistenceException If the operation fails.
      * @since 2.2
      */
-    Resource create(Resource parent, String name, Map<String, Object> properties)
+    @Nonnull Resource create(@Nonnull Resource parent, @Nonnull String name, Map<String, Object> properties)
     throws PersistenceException;
 
     /**
@@ -624,7 +624,7 @@ public interface ResourceResolver extends Adaptable {
      *         provided resource is <code>null</code>
      * @since 2.3
      */
-    String getParentResourceType(final Resource resource);
+    @CheckForNull String getParentResourceType(final Resource resource);
 
     /**
      * Returns the super type of the given resource type. This method converts
@@ -639,7 +639,7 @@ public interface ResourceResolver extends Adaptable {
      *         <code>null</code> if <code>resourceType> is null.
      * @since 2.3
      */
-    public String getParentResourceType(final String resourceType);
+    public @CheckForNull String getParentResourceType(final String resourceType);
 
     /**
      * Returns <code>true</code> if the resource type or any of the resource's

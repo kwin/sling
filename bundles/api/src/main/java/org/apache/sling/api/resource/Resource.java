@@ -68,7 +68,7 @@ public interface Resource extends Adaptable {
      *
      * @since 2.1.0
      */
-    String getName();
+    @Nonnull String getName();
 
     /**
      * Returns the parent resource or <code>null</code> if this resource
@@ -76,7 +76,7 @@ public interface Resource extends Adaptable {
      *
      * @since 2.1.0
      */
-    Resource getParent();
+    @CheckForNull Resource getParent();
 
     /**
      * Returns an iterator of the direct children of this resource.
@@ -87,7 +87,7 @@ public interface Resource extends Adaptable {
      * @since 2.1.0
      * @see ResourceResolver#listChildren(Resource)
      */
-    Iterator<Resource> listChildren();
+    @Nonnull Iterator<Resource> listChildren();
 
     /**
      * Returns an iterable of the direct children of this resource.
@@ -98,7 +98,7 @@ public interface Resource extends Adaptable {
      * @since 2.2.0
      * @see ResourceResolver#getChildren(Resource)
      */
-    Iterable<Resource> getChildren();
+    @Nonnull Iterable<Resource> getChildren();
 
     /**
      * Returns the child at the given relative path of this resource or
@@ -110,7 +110,7 @@ public interface Resource extends Adaptable {
      * @since 2.1.0
      * @see ResourceResolver#getResource(Resource, String)
      */
-    Resource getChild(String relPath);
+    @CheckForNull Resource getChild(@Nonnull String relPath);
 
     /**
      * The resource type is meant to point to rendering/processing scripts,
@@ -179,5 +179,5 @@ public interface Resource extends Adaptable {
      * @return A value map
      * @since 2.5
      */
-    ValueMap getValueMap();
+    @Nonnull ValueMap getValueMap();
 }

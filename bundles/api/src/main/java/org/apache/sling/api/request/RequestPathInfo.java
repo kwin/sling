@@ -221,5 +221,5 @@ public interface RequestPathInfo {
      *
      * @since 2.3 (Sling API 2.3.2)
      */
-    Resource getSuffixResource();
+    @CheckForNull Resource getSuffixResource();
 }
